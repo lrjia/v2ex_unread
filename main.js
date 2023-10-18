@@ -18,6 +18,7 @@ function is_post_page(url) {
 
 function post_id(url) {
     // https://www.v2ex.com/t/982998#reply129
+    GM_log("url: " + url);
     let id = url.split('/t/')[1].split('#')[0];
     GM_log("post id: " + id);
     return id;
@@ -43,22 +44,28 @@ function record_post(url) {
 
 function edit_index() {
     //div.cell.item
-    let items = document.querySelectorAll('div.cell.item');
+    let items = document.querySelectorAll('#Main > div.box > div.cell.item');
     GM_log("items count: " + items.length);
     for (let i = 0; i < items.length; i++) {
         let item = items[i];
-        let a = item.querySelector('a');
-        let url = a.href;
+        let url = item.querySelector('table > tbody > tr > td:nth-child(3) > span.item_title > a').href;
         let id = post_id(url);
         let json = GM_getValue(id);
         if (json) {
             let data = JSON.parse(json);
             let past_reply_count = data.reply_count;
-            let reply_count = a.innerText
-            let new_reply_count = parseInt(reply_count) - parseInt(past_reply_count);
-            a.innerText = reply_count + ' (' + new_reply_count + ')';
+            let a = item.querySelector('table > tbody > tr > td:nth-child(4) > a');
+            let reply_count = 0
+            if (a) {
+                reply_count = parseInt(a.innerText)
+            }else {
+                reply_count = 0;
+            }
+            let new_reply_count = reply_count - parseInt(past_reply_count);
             if (new_reply_count === 0) {
-                a.style.visibility = 'hidden';
+                item.style.display = 'none';
+            }else{
+                a.innerText = reply_count + ' + (' + new_reply_count + ')';
             }
         }
     }
