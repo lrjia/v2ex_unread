@@ -1,11 +1,13 @@
 // ==UserScript==
-// @name         lrjiaHello
+// @name         v2ex_unread
 // @namespace    http://tampermonkey.net/hello
 // @version      0.1
 // @description  try to take over the world!
-// @author       You Name
+// @author       lrjia
 // @match        https://www.v2ex.com/*
 // @grant        GM_log
+// @grant        GM_setValue
+// @grant        GM_getValue
 // ==/UserScript==
 
 function is_post_page(url) {
