@@ -65,7 +65,7 @@ function edit_index() {
             if (new_reply_count === 0) {
                 item.style.display = 'none';
             }else{
-                a.innerText = reply_count + ' + (' + new_reply_count + ')';
+                a.innerText = reply_count + '+' + new_reply_count;
             }
         }
     }
