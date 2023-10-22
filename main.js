@@ -62,7 +62,7 @@ function edit_index() {
                 reply_count = 0;
             }
             let new_reply_count = reply_count - parseInt(past_reply_count);
-            if (new_reply_count === 0) {
+            if (new_reply_count <= 0) {
                 item.style.display = 'none';
             }else{
                 a.innerText = reply_count + '+' + new_reply_count;
